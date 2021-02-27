@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <Title>Three.js Crash Course</Title>
+        <style>
+            body {margin: 0};
+            canvas {width: 100%; height: 100%};
+        </style>
+    </head>
+    <body>
+        <script src="js/three.js"></script>
+        <script src="js/OrbitControls.js"></script>
+        <script>
+            let scene = new THREE.Scene();
+
+            let camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 45, 30000);
+            camera.position.set(-900,-200,-900);
+
+            let renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            window.addEventListener('resize', () => {
+                let width = window.innerWidth;
+                let height = window.innerHeight;
+                renderer.setSize(width,height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            //create the skybox
+            let geometry = new THREE.BoxGeometry(10000, 10000, 10000);
+
+            let cubeMaterials = [
+                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_ft.png"), side: THREE.DoubleSide}),
+                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_bk.png"), side: THREE.DoubleSide}),
+                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_up.png"), side: THREE.DoubleSide}),
+                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_dn.png"), side: THREE.DoubleSide}),
+                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_rt.png"), side: THREE.DoubleSide}),
+                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_lf.png"), side: THREE.DoubleSide})
+            ];
+
+            //let cubeMaterial = new THREE.MeshBasicMaterial(cubeMaterials);
+            let cube = new THREE.Mesh(geometry, cubeMaterials);
+            scene.add(cube);
+
+
+            //game logic
+            const update = () => {
+
+            };
+            //draw Scene
+            const render = () => {
+                renderer.render(scene, camera);
+            };
+            
+            //run gameLoop (update, render, repeat)
+            const gameLoop = () => {
+                requestAnimationFrame(gameLoop);
+
+                update();
+                render();
+            };
+
+            gameLoop();
+        </script>
+    </body>
+</html>
