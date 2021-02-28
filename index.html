@@ -8,62 +8,6 @@
         </style>
     </head>
     <body>
-        <script src="js/three.js"></script>
-        <script src="js/OrbitControls.js"></script>
-        <script>
-            let scene = new THREE.Scene();
-
-            let camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 45, 30000);
-            camera.position.set(-900,-200,-900);
-
-            let renderer = new THREE.WebGLRenderer({antialias: true});
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
-
-            //Responsive Design
-            window.addEventListener('resize', () => {
-                let width = window.innerWidth;
-                let height = window.innerHeight;
-                renderer.setSize(width,height);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-            });
-
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-            //create the skybox
-            let skyboxGeo = new THREE.BoxGeometry(10000, 10000, 10000);
-
-            let skyboxMaterials = [
-                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_ft.png"), side: THREE.DoubleSide}),
-                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_bk.png"), side: THREE.DoubleSide}),
-                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_up.png"), side: THREE.DoubleSide}),
-                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_dn.png"), side: THREE.DoubleSide}),
-                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_rt.png"), side: THREE.DoubleSide}),
-                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("img/skybox/corona_lf.png"), side: THREE.DoubleSide})
-            ];
-
-            let skybox = new THREE.Mesh(skyboxGeo, skyboxMaterials);
-            scene.add(skybox);
-
-            //game logic
-            const update = () => {
-
-            };
-            //draw Scene
-            const render = () => {
-                renderer.render(scene, camera);
-            };
-            
-            //run gameLoop (update, render, repeat)
-            const gameLoop = () => {
-                requestAnimationFrame(gameLoop);
-
-                update();
-                render();
-            };
-
-            gameLoop();
-        </script>
+        <script src="js/index.js" type = "module"></script>
     </body>
 </html>
